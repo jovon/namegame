@@ -85,6 +85,9 @@ class Game extends React.Component {
             correctlyAnswered: false,
             answer: {}
         }
+        
+    }
+    componentDidMount(){
         fetch("https://willowtreeapps.com/api/v1.0/profiles/")
             .then( (response) => {
                 return response.json() })   
