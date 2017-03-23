@@ -1,14 +1,6 @@
 'use strict';
 
-var items,
-    pickAnswer,
-    pickChoices,
-    getRandomInt,
-    maxIndex,
-    pickAnswer,
-    pickRandomIndex,
-    maxChoices = 5;
-
+var maxChoices = 5;
 
 
 function Name(props) {
