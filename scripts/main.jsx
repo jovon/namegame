@@ -1,5 +1,12 @@
 'use strict';
 
+// Selects a random integer between 0 and the maximum index of the items array
+function getRandomInt (min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function Name(props) {
     let fName = '';
     let lName = '';
@@ -141,14 +148,7 @@ class Game extends React.Component {
     // Arguments:
     //      maxIndex = the highest possible index of the items array
     pickRandomIndex (max) {
-        return this.getRandomInt(0, max);
-    }
-
-    // Selects a random integer between 0 and the maximum index of the items array
-    getRandomInt (min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
+        return getRandomInt(0, max);
     }
 
     // Returns the index of the randonly pick answer
