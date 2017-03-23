@@ -107,7 +107,10 @@ class Game extends React.Component {
                 this.setState({history});
             }
         }
-        this.setState({history: {right: rightNum, wrong: wrongNum}, correctlyAnswered: correctlyAnswered})
+        this.setState(
+            {history: {right: rightNum, wrong: wrongNum}, 
+            correctlyAnswered: correctlyAnswered}
+            );
     }
     handleNextClick(){
         this.getChoices();
@@ -119,7 +122,7 @@ class Game extends React.Component {
         let maxChoices = 5;
         let choicesIndexes = this.pickChoices(maxChoices);
         let results = {};
-        let choices = []
+        let choices = [];
         for(let i = 0; i <= maxChoices - 1; i++) {
             choices.push(this.state.data[choicesIndexes[i]]);
         }
