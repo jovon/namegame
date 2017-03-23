@@ -116,15 +116,15 @@ class Game extends React.Component {
     }
     // Creates an object with the selected people
     getChoices(){
-        var maxChoices = 5;
-        var choicesIndexes = this.pickChoices(maxChoices);
-        var results = {};
-        var choices = []
+        let maxChoices = 5;
+        let choicesIndexes = this.pickChoices(maxChoices);
+        let results = {};
+        let choices = []
         for(let i = 0; i <= maxChoices - 1; i++) {
             choices.push(this.state.data[choicesIndexes[i]]);
         }
         results.choices = choices;
-        var answer = this.pickAnswer(choices);
+        let answer = this.pickAnswer(choices);
         this.setState({choices: choices, 
                        answer: {index: answer, 
                                 item: choices[answer]}});
@@ -133,10 +133,10 @@ class Game extends React.Component {
     // Picks 5 random integers to be indexes of the items array
     //   which represent the possibles choices.
     pickChoices (maxChoices) {
-        var chosenIndexes = []
-        var max = this.state.maxIndex;
+        let chosenIndexes = []
+        let max = this.state.maxIndex;
         for(let i = 0; i <= maxChoices - 1; i++) {
-            var indx = this.pickRandomIndex(max)
+            let indx = this.pickRandomIndex(max)
             if(!this.isChosen(indx, chosenIndexes)){
                 chosenIndexes.push(indx);
             }
