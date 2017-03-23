@@ -1,8 +1,5 @@
 'use strict';
 
-var maxChoices = 5;
-
-
 function Name(props) {
     let fName = '';
     let lName = '';
@@ -40,7 +37,7 @@ function Next(props) {
 class Faces extends React.Component {
     renderFace(i) {
         let imgLocation = '';
-        if(this.props.value && this.props.value.length === maxChoices) {
+        if(this.props.value) { 
             if(this.props.value[i] !== undefined){
                 imgLocation = this.props.value[i].headshot.url;
             } else {
@@ -111,8 +108,9 @@ class Game extends React.Component {
         $('.face').prop('disabled', false);
     }
     // Creates an object with the selected people
-    getChoices() {
-        var choicesIndexes = this.pickChoices();
+    getChoices(){
+        var maxChoices = 5;
+        var choicesIndexes = this.pickChoices(maxChoices);
         var results = {};
         var choices = []
         for(let i = 0; i <= maxChoices - 1; i++) {
@@ -127,7 +125,8 @@ class Game extends React.Component {
     }
     // Picks 5 random integers to be indexes of the items array
     //   which represent the possibles choices.
-    pickChoices (chosenIndexes = []) {
+    pickChoices (maxChoices) {
+        var chosenIndexes = []
         var max = this.state.maxIndex;
         for(let i = 0; i <= maxChoices - 1; i++) {
             var indx = this.pickRandomIndex(max)
