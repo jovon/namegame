@@ -1,4 +1,3 @@
-'use strict';
 
 // Selects a random integer between 0 and the maximum index of the items array
 function getRandomInt (min, max) {
@@ -104,8 +103,15 @@ class Game extends React.Component {
             } else {
                 wrongNum++;
                 $('#'+i).prop("disabled", true);
-                this.setState({history});
             }
+            this.setState({
+                            history: {
+                                right: rightNum, 
+                                wrong: wrongNum
+                            }, 
+                            correctlyAnswered: correctlyAnswered
+                            }
+                        );
         }
         this.setState(
             {history: {right: rightNum, wrong: wrongNum}, 
@@ -117,20 +123,19 @@ class Game extends React.Component {
         this.setState({correctlyAnswered: false});
         $('.face').prop('disabled', false);
     }
-    // Creates an object with the selected people
+    // Creates an object with the chosen people
     getChoices(){
         let maxChoices = 5;
         let choicesIndexes = this.pickChoices(maxChoices);
-        let results = {};
         let choices = [];
-        for(let i = 0; i <= maxChoices - 1; i++) {
-            choices.push(this.state.data[choicesIndexes[i]]);
-        }
-        results.choices = choices;
+
+        maxChoices.map((i) => choices.push(this.state.data[choicesIndexes[i]]));
+        
         let answer = this.pickAnswer(choices);
         this.setState({choices: choices, 
                        answer: {index: answer, 
-                                item: choices[answer]}});
+                                item: choices[answer]}
+                       });
 
     }
     // Picks 5 random integers to be indexes of the items array
@@ -180,7 +185,7 @@ class Game extends React.Component {
                 </div>
                 <Faces value={this.state.choices || []} onClick={(i)=> this.handleChoiceClick(i)}/>
                 <div className="history">
-                    <div id="right">Right:  {this.state.history.right}</div>
+                    <div id="right">Right: {this.state.history.right}</div>
                     <div id="wrong">Wrong: {this.state.history.wrong}</div>
                  </div>
                  <div className="next">
