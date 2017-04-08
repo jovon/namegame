@@ -88,6 +88,7 @@ class Game extends React.Component {
                 return response.json() })   
                     .then( (json) => {
                         this.setState({data: json.items, maxIndex: json.items.length - 1});
+                        this.getChoices();
                     });
 
     }
@@ -173,10 +174,6 @@ class Game extends React.Component {
     }
 
     render() {
-        if(this.state.maxIndex > 0 && this.state.choices.length === 0) {
-            this.getChoices();
-        }
-
         return (
             <div className="game">
                 <div className="question">
