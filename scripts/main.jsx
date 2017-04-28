@@ -21,11 +21,8 @@ function Name(props) {
 }
 
 class Face extends React.Component{
-    constructor(){
-        super()
-        this.state = {
-            disabled: false,
-        }
+    constructor(props){
+        super();
     }
     render() {
         let value = [];
@@ -33,7 +30,7 @@ class Face extends React.Component{
             value = this.props.value;
         }
         return(
-            <button className="face" id={value.index} onClick={() => {this.props.onClick(); this.setState({disabled:true})} } disabled={this.state.disabled}>
+            <button className="face" id={value.index} onClick={() => this.props.onClick() } disabled={this.props.disabled}>
                 <img src={value.img} />
             </button>
         );
@@ -45,10 +42,14 @@ function Next(props) {
         <button id="next" type="button" className="btn btn-primary btn-lg" onClick={() => props.onClick()}>
             Next
         </button>
-    )
+    );
 }
 
 class Faces extends React.Component {
+    constructor(props){
+        super();
+
+    }
     renderFace(i) {
         let imgLocation = '';
         if(this.props.value) { 
@@ -86,8 +87,9 @@ class Game extends React.Component {
             choices: [],
             maxIndex: 0,
             correctlyAnswered: false,
+            disabled: false,
             answer: {}
-        }
+        };
         var obj = this;
         this.event = (e) => {
                 if(e.keyCode === 49){
@@ -103,20 +105,20 @@ class Game extends React.Component {
                     obj.handleChoiceClick(3);
                 } 
                 if(e.keyCode === 53){
-                    obj.handleChoiceClick()
+                    obj.handleChoiceClick();
                 } 
                 if(e.keyCode === 13){
                     obj.handleNextClick();
                 }
 
-            }
+            };
         
     }
     componentDidMount(){
         var obj = this;
         fetch("https://willowtreeapps.com/api/v1.0/profiles/")
             .then( (response) => {
-                return response.json() })   
+                return response.json(); })   
                     .then( (json) => {
                         this.setState({data: json.items, maxIndex: json.items.length - 1});
                         this.getChoices();
@@ -171,10 +173,10 @@ class Game extends React.Component {
     // Picks 5 random integers to be indexes of the items array
     //   which represent the possibles choices.
     pickChoices (maxChoices) {
-        let chosenIndexes = []
+        let chosenIndexes = [];
         let max = this.state.maxIndex;
         while(chosenIndexes.length < maxChoices){
-            let indx = this.pickRandomIndex(max)
+            let indx = this.pickRandomIndex(max);
             if(!this.isChosen(indx, chosenIndexes)){
                 chosenIndexes.push(indx);
             }
@@ -199,7 +201,7 @@ class Game extends React.Component {
     isChosen (indx, chosenIndexes) {
         return undefined !== chosenIndexes.find(function(v){
             return v === indx;
-        })
+        });
     }
 
     render() {
